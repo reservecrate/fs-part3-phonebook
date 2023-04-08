@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "shx rm -rf dist && cd ../frontend/ && npm run build && shx cp -r dist ../backend",
-    "deploy": "fly deploy"
+    "deploy": "fly deploy",
+    "build:dev": "shx rm -rf dist && cd ../frontend/ && npm run build && shx cp -r dist ../backend && nodemon index.js"
   },
   "author": "reservecrate",
   "license": "ISC",

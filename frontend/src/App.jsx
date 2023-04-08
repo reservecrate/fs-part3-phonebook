@@ -4,7 +4,6 @@ import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import personsService from './services/persons';
 import Notification from './components/Notification';
-import { log } from 'console';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -67,14 +66,16 @@ const App = () => {
       //     `${newName.trim()} has already been added to the phonebook. Would you like to replace the old phone number with a new one?`
       //   )
       // )
-      const matchedPerson = persons.find(person => person.name === newName).id;
+      const matchedPerson = persons.find(
+        person => person.name.toLowerCase() === newName.trim().toLowerCase()
+      ).id;
       updatePerson(matchedPerson.id, matchedPerson);
     } else {
       personsService
         .createPerson(newPerson)
-        .then(newPersonObj => {
-          setPersons([...filteredPersons, newPersonObj]);
-          setFilteredPersons([...filteredPersons, newPersonObj]);
+        .then(newPerson => {
+          setPersons([...filteredPersons, newPerson]);
+          setFilteredPersons([...filteredPersons, newPerson]);
           setNotification({
             styles: {
               borderStyle: 'solid',
@@ -128,9 +129,9 @@ const App = () => {
     matchedPerson.phone = newPhone;
     personsService
       .updatePerson(matchedPersonId, matchedPerson)
-      .then(updatedPersonObj => {
+      .then(updatedPerson => {
         const filteredPersonsCopy = JSON.parse(JSON.stringify(filteredPersons));
-        filteredPersonsCopy.splice(matchedPersonIndex, 1, updatedPersonObj);
+        filteredPersonsCopy.splice(matchedPersonIndex, 1, updatedPerson);
         setPersons(filteredPersonsCopy);
         setFilteredPersons(filteredPersonsCopy);
         setNotification({
@@ -140,7 +141,7 @@ const App = () => {
             borderRadius: '15px',
             paddingLeft: '5px'
           },
-          message: `${updatedPersonObj.name}'s phone number has been successfully updated`
+          message: `${updatedPerson.name}'s phone number has been successfully updated`
         });
         setTimeout(() => setNotification({ message: null, styles: {} }), 4000);
         setNewName('');
