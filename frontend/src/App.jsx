@@ -85,7 +85,7 @@ const App = () => {
             },
             message: `${newName} has been successfully added to the phonebook`
           });
-          setTimeout(() => setNotification(''), 4000);
+          setTimeout(() => setNotification(''), 3000);
           setNewName('');
           setNewPhone('');
         })
@@ -143,7 +143,7 @@ const App = () => {
           },
           message: `${updatedPerson.name}'s phone number has been successfully updated`
         });
-        setTimeout(() => setNotification({ message: null, styles: {} }), 4000);
+        setTimeout(() => setNotification({ message: null, styles: {} }), 3000);
         setNewName('');
         setNewPhone('');
       })
@@ -160,7 +160,7 @@ const App = () => {
           },
           message
         });
-        setTimeout(() => setNotification(''), 4000);
+        setTimeout(() => setNotification(''), 3000);
       });
   };
 

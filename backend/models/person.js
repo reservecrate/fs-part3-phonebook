@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false);
@@ -21,7 +22,11 @@ const personSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: v => /\d{1,3}-\d{1,10}$/.test(v),
+      message: props => `${props.value} is not a valid phone number!`
+    }
   }
 });
 
